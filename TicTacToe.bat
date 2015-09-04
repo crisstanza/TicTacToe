@@ -42,10 +42,10 @@ set INVALID_OPTION=
 	echo     [t] terminal     [q] quit
 	echo.
 	echo   Maven commands:
-	echo   ----------------
-	echo     [a] Clean        [s] Source       [k] Site
-	echo     [d] Compile      [f] Test         [g] Install
-	echo     [h] Run (java)   [j] Run (exec)
+	echo   ---------------
+	echo     [a] Clean        [s] Source       [d] Site
+	echo     [f] Compile      [g] Test         [h] Install
+	echo     [j] Run (java)   [k] Run (exec)
 	echo.
 
 	set OPTION=
@@ -90,11 +90,7 @@ set INVALID_OPTION=
 
 :OPTION_2
 	echo.
-	cd .\target
-	cd .\classes
-	java -splash:splash.png -cp %CP% Main
-	cd ..
-	cd ..
+	java -splash:.\target\classes\splash.png -cp .\target\classes;%CP% Main
 	goto END_OF_OPTION
 
 :OPTION_3
@@ -116,32 +112,32 @@ set INVALID_OPTION=
 
 :OPTION_D
 	echo.
-	call mvn compile
+	call mvn site:site
 	goto END_OF_OPTION
 
 :OPTION_F
 	echo.
-	call mvn test
+	call mvn compile
 	goto END_OF_OPTION
 
 :OPTION_G
 	echo.
-	call mvn install
+	call mvn test
 	goto END_OF_OPTION
 
 :OPTION_H
 	echo.
-	call mvn exec:java -Dexec.mainClass="Main"
+	call mvn install
 	goto END_OF_OPTION
 
 :OPTION_J
 	echo.
-	call mvn exec:exec -Dexec.executable="java" -Dexec.args="-splash:.\target\classes\splash.png -cp .\target\classes;%CP% Main"
+	call mvn exec:java -Dexec.mainClass="Main"
 	goto END_OF_OPTION
 
 :OPTION_K
 	echo.
-	call mvn site:site
+	call mvn exec:exec -Dexec.executable="java" -Dexec.args="-splash:.\target\classes\splash.png -cp .\target\classes;%CP% Main"
 	goto END_OF_OPTION
 
 
