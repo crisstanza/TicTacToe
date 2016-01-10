@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public final class TicTacToeServer {
 
-	public static final String URL = "http://www.acasadojava.com.br/tictactoe/service";
+	public static final String URL = "http://www.acasadojava.com.br/tictactoe/service.php";
 
 	public TicTacToeGame getGame() throws Exception {
 		return (TicTacToeGame) transform(get(operation(URL, "GetGame")), new TicTacToeGame());

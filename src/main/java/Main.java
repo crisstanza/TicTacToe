@@ -1,6 +1,6 @@
+import config.Config;
 import io.github.crisstanza.tictactoe.TicTacToeGame;
 import io.github.crisstanza.tictactoe.TicTacToeServer;
-import config.Config;
 
 public class Main {
 
