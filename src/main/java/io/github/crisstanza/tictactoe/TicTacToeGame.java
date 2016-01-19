@@ -2,6 +2,7 @@ package io.github.crisstanza.tictactoe;
 
 public final class TicTacToeGame {
 
+	public static final int STATUS_NOT_STARTED = -1;
 	public static final int STATUS_RUNNING = 0;
 	public static final int STATUS_GAME_OVER = 1;
 
