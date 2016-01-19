@@ -11,7 +11,9 @@ public class Main {
 		TicTacToeServer server = new TicTacToeServer();
 		TicTacToeGame game = server.getGame();
 		//
-		if (game.getStatus() == TicTacToeGame.STATUS_GAME_OVER) {
+		if (game.getStatus() == TicTacToeGame.STATUS_NOT_STARTED) {
+			System.out.println("Este jogo ainda n\u00E3o iniciou.");
+		} else if (game.getStatus() == TicTacToeGame.STATUS_GAME_OVER) {
 			System.out.println("Fim do jogo.");
 		} else {
 			if (game.getTurn().equals(config.getNome())) {
