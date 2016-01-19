@@ -7,6 +7,7 @@ public final class TicTacToeGame {
 	public static final int STATUS_GAME_OVER = 1;
 
 	private String board;
+	private int id;
 	private int status;
 	private String turn;
 
@@ -16,6 +17,14 @@ public final class TicTacToeGame {
 
 	public void setBoard(String board) {
 		this.board = board;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public int getStatus() {
