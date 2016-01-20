@@ -31,6 +31,13 @@ public final class TicTacToeGame {
 		return status;
 	}
 
+	public char getPiece() {
+		return 'o';
+	}
+
+	public void setPiece(char piece) {
+	}
+
 	public void setStatus(int status) {
 		this.status = status;
 	}
