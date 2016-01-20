@@ -16,6 +16,11 @@ public final class TicTacToeServer {
 		return (TicTacToeGame) transform(get(operation(URL, "GetGame")), new TicTacToeGame());
 	}
 
+	public final String setGame(TicTacToeGame game) throws Exception {
+		return get(operation(URL, "SetGame") + "&board=" + game.getBoard() + "&id=" + game.getId() + "&piece="
+				+ game.getPiece() + "&status=" + game.getStatus() + "&turn=" + game.getTurn());
+	}
+
 	private String operation(String url, String operation) {
 		return url + "?op=" + operation;
 	}
@@ -43,6 +48,7 @@ public final class TicTacToeServer {
 		String[] lines = response.split("\n");
 		Field[] fields = game.getClass().getDeclaredFields();
 		Arrays.sort(fields, new Comparator<Field>() {
+			@Override
 			public int compare(Field o1, Field o2) {
 				return o1.getName().compareTo(o2.getName());
 			}
