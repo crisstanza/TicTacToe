@@ -17,8 +17,7 @@ public final class TicTacToeServer {
 	}
 
 	public final String setGame(TicTacToeGame game) throws Exception {
-		return get(operation(URL, "SetGame") + "&board=" + game.getBoard() + "&id=" + game.getId() + "&piece="
-				+ game.getPiece() + "&status=" + game.getStatus() + "&turn=" + game.getTurn());
+		return get(operation(URL, "SetGame") + "&board=" + game.getBoard() + "&id=" + game.getId() + "&piece=" + game.getPiece() + "&status=" + game.getStatus() + "&turn=" + game.getTurn());
 	}
 
 	private String operation(String url, String operation) {

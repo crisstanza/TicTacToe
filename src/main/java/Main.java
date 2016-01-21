@@ -7,7 +7,7 @@ import io.github.crisstanza.tictactoe.TicTacToeServer;
 
 public class Main {
 	public static final int BOARD_SIZE = 3;
-	public static final char SPACE = '.';
+	public static final char SPACE = ' ';
 	private static final Scanner scanner = new Scanner(System.in);
 	private static final Config config = Config.getInstance();
 
@@ -18,35 +18,39 @@ public class Main {
 		final TicTacToeServer server = new TicTacToeServer();
 		final TicTacToeGame game = server.getGame();
 		//
+		printHeader();
+		//
 		if (game.getStatus() == TicTacToeGame.STATUS_NOT_STARTED) {
 			System.out.println("Este jogo ainda n\u00E3o iniciou.");
 		} else if (game.getStatus() == TicTacToeGame.STATUS_GAME_OVER) {
 			// System.out.println()
-			printBoard(game);
 			System.out.println("Fim do jogo.");
-		} else {
 			printBoard(game);
+		} else {
 			if (game.getTurn().equals(config.getNome())) {
-				System.out.println("Sua vez de jogar.");
-				System.out.print("Entre com a linha: ");
+				System.out.println(" Sua vez de jogar.");
+				printBoard(game);
+				System.out.print(" Entre com a linha: ");
 				int row = scanner.nextInt();
-				System.out.print("Entre com a coluna: ");
+				System.out.print(" Entre com a coluna: ");
 				int col = scanner.nextInt();
 				String newBoard = game.getBoard().substring(0, (row - 1) * BOARD_SIZE + (col - 1));
 				newBoard += game.getPiece();
 				newBoard += game.getBoard().substring((row - 1) * BOARD_SIZE + (col - 1) + 1);
-				System.out.println(newBoard.replace(' ', '.'));
-				System.out.println(newBoard.length());
 				game.setBoard(newBoard);
 				if (server.setGame(game).trim().equals("0")) {
 					clear();
+					printHeader();
+					System.out.println(" Esperando a jogada do advers\u00E1rio.");
 					printBoard(game);
-					System.out.println("Esperando a jogada do advers\u00E1rio.");
 				} else {
-					System.out.println("Jogada n\u00E3o pode ser realizada");
+					clear();
+					printHeader();
+					System.out.println(" Jogada n\u00E3o p\u00F4de ser realizada.");
+					printBoard(game);
 				}
 			} else {
-				System.out.println("Esperando a jogada do advers\u00E1rio.");
+				System.out.println(" Esperando a jogada do advers\u00E1rio.");
 			}
 		}
 
@@ -54,9 +58,18 @@ public class Main {
 		//
 	}
 
-	public static void printBoard(TicTacToeGame game) {
+	private static final void printHeader() {
+		System.out.println("  ======================");
+		System.out.println("  =    JOGO DA VELHA   =");
+		System.out.println("  ======================");
+		System.out.println();
+	}
 
+	public static void printBoard(TicTacToeGame game) {
+		System.out.println();
+		final String pad = "   ";
 		for (int i = 0; i < BOARD_SIZE; i++) {
+			System.out.print(pad);
 			for (int j = 0; j < BOARD_SIZE; j++) {
 				System.out.print("" + SPACE + game.getBoard().charAt(BOARD_SIZE * i + j) + SPACE);
 				if (j != BOARD_SIZE - 1) {
@@ -66,15 +79,15 @@ public class Main {
 				}
 			}
 			if (i != BOARD_SIZE - 1) {
-				System.out.println("-----------");
+				System.out.println(pad + "-----------");
 			}
 		}
-
+		System.out.println();
 	}
 
 	public static final void clear() {
 		for (int i = 0; i < 64; i++) {
-			System.out.println(".");
+			System.out.println();
 		}
 	}
 
