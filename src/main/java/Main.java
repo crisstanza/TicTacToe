@@ -72,17 +72,26 @@ public class Main {
 			System.out.print(pad);
 			for (int j = 0; j < BOARD_SIZE; j++) {
 				System.out.print("" + SPACE + game.getBoard().charAt(BOARD_SIZE * i + j) + SPACE);
-				if (j != BOARD_SIZE - 1) {
-					System.out.print("|");
+				if (j < BOARD_SIZE - 1) {
+					System.out.print("\u00A6");
 				} else {
-					System.out.println("");
+					System.out.println();
 				}
 			}
 			if (i != BOARD_SIZE - 1) {
-				System.out.println(pad + "-----------");
+				System.out.print(pad);
+				for (int j = 0; j < BOARD_SIZE; j++) {
+					System.out.print("---");
+					if (j < BOARD_SIZE - 1) {
+						System.out.print("+");
+					} else {
+						System.out.println();
+					}
+				}
+			} else {
+				System.out.println();
 			}
 		}
-		System.out.println();
 	}
 
 	public static final void clear() {
