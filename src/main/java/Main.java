@@ -28,29 +28,30 @@ public class Main {
 			printBoard(game);
 		} else {
 			if (game.getTurn().equals(config.getNome())) {
-				System.out.println(" Sua vez de jogar.");
+
+				System.out.println("Sua vez de jogar.");
 				printBoard(game);
-				System.out.print(" Entre com a linha: ");
-				int row = scanner.nextInt();
-				System.out.print(" Entre com a coluna: ");
-				int col = scanner.nextInt();
-				String newBoard = game.getBoard().substring(0, (row - 1) * BOARD_SIZE + (col - 1));
-				newBoard += game.getPiece();
-				newBoard += game.getBoard().substring((row - 1) * BOARD_SIZE + (col - 1) + 1);
-				game.setBoard(newBoard);
-				if (server.setGame(game).trim().equals("0")) {
-					clear();
-					printHeader();
-					System.out.println(" Esperando a jogada do advers\u00E1rio.");
-					printBoard(game);
-				} else {
-					clear();
-					printHeader();
-					System.out.println(" Jogada n\u00E3o p\u00F4de ser realizada.");
-					printBoard(game);
+
+				int row = getMove("linha");
+				int col = getMove("coluna");
+
+				updateBoard(game, row, col);
+				game.setBoard("ooooooooo");
+				while (true) {
+					System.out.println("Tentando enviar jogada para o servidor");
+					if (server.setGame(game).trim().equals("0")) {
+						break;
+					}
+					System.out.println("Erro ao enviar jogada. Aguarde nova tentativa");
+					Thread.sleep(1000);
 				}
+				clear();
+				printHeader();
+				System.out.println(" Esperando a jogada do advers\u00E1rio.");
+				printBoard(game);
 			} else {
 				System.out.println(" Esperando a jogada do advers\u00E1rio.");
+				printBoard(game);
 			}
 		}
 
@@ -118,5 +119,26 @@ public class Main {
 		} catch (final Exception exc) {
 			// nothing to do!!!
 		}
+	}
+
+	private static final int getMove(String msg) {
+		while (true) {
+			Integer value;
+			System.out.print("Entre com o número da " + msg + ": ");
+			value = nextInt(scanner);
+			if (value != null && value >= 1 && value <= BOARD_SIZE) {
+				return value;
+			} else {
+				scanner.next();
+				System.out.println("Valor inv\u00E1lido. Insira um n\u00FAmero entre 1 e " + BOARD_SIZE);
+			}
+		}
+	}
+
+	private static final void updateBoard(TicTacToeGame game, int row, int col) {
+		String newBoard = game.getBoard().substring(0, (row - 1) * BOARD_SIZE + col - 1);
+		newBoard += game.getPiece();
+		newBoard += game.getBoard().substring((row - 1) * BOARD_SIZE + col);
+		game.setBoard(newBoard);
 	}
 }
