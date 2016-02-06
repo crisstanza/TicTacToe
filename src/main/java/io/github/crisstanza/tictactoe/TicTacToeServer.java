@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Scanner;
@@ -24,11 +25,13 @@ public final class TicTacToeServer {
 		return url + "?op=" + operation;
 	}
 
-	private String get(String url) throws Exception {
+	private final String get(final String url) throws Exception {
 		InputStream urlOpenStream = null;
 		Scanner scanner = null;
 		try {
-			urlOpenStream = new URL(url).openStream();
+			final URLConnection urlConnection = new URL(url).openConnection();
+			urlConnection.setUseCaches(false);
+			urlOpenStream = urlConnection.getInputStream();
 			scanner = new Scanner(urlOpenStream, "UTF-8");
 			String response = scanner.useDelimiter("\\A").next();
 			return response;
