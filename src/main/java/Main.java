@@ -6,35 +6,29 @@ import io.github.crisstanza.tictactoe.TicTacToeGame;
 import io.github.crisstanza.tictactoe.TicTacToeServer;
 
 public class Main {
+
 	public static final int BOARD_SIZE = 3;
 	public static final char SPACE = ' ';
+
 	private static final Scanner scanner = new Scanner(System.in);
 	private static final Config config = Config.getInstance();
 
 	public static void main(String[] args) throws Exception {
-		//
 		clear();
-
 		final TicTacToeServer server = new TicTacToeServer();
 		final TicTacToeGame game = server.getGame();
-		//
 		printHeader();
-		//
 		if (game.getStatus() == TicTacToeGame.STATUS_NOT_STARTED) {
 			System.out.println("Este jogo ainda n\u00E3o iniciou.");
 		} else if (game.getStatus() == TicTacToeGame.STATUS_GAME_OVER) {
-			// System.out.println()
 			System.out.println("Fim do jogo.");
 			printBoard(game);
 		} else {
 			if (game.getTurn().equals(config.getNome())) {
-
 				System.out.println("Sua vez de jogar.");
 				printBoard(game);
-
 				int row = getMove("linha");
 				int col = getMove("coluna");
-
 				updateBoard(game, row, col);
 				game.setBoard("ooooooooo");
 				while (true) {
@@ -54,9 +48,7 @@ public class Main {
 				printBoard(game);
 			}
 		}
-
 		close(scanner);
-		//
 	}
 
 	private static final void printHeader() {
@@ -137,7 +129,7 @@ public class Main {
 
 	private static final void updateBoard(TicTacToeGame game, int row, int col) {
 		String newBoard = game.getBoard().substring(0, (row - 1) * BOARD_SIZE + col - 1);
-		newBoard += game.getPiece();
+		newBoard += game.getTurnPiece();
 		newBoard += game.getBoard().substring((row - 1) * BOARD_SIZE + col);
 		game.setBoard(newBoard);
 	}

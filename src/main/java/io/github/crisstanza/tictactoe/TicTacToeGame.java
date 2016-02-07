@@ -10,6 +10,7 @@ public final class TicTacToeGame {
 	private int id;
 	private int status;
 	private String turn;
+	private String turnPiece;
 
 	public String getBoard() {
 		return board;
@@ -31,13 +32,6 @@ public final class TicTacToeGame {
 		return status;
 	}
 
-	public char getPiece() {
-		return 'o';
-	}
-
-	public void setPiece(char piece) {
-	}
-
 	public void setStatus(int status) {
 		this.status = status;
 	}
@@ -48,6 +42,14 @@ public final class TicTacToeGame {
 
 	public void setTurn(String turn) {
 		this.turn = turn;
+	}
+
+	public final String getTurnPiece() {
+		return this.turnPiece;
+	}
+
+	public final void setTurnPiece(final String turnPiece) {
+		this.turnPiece = turnPiece;
 	}
 
 }
